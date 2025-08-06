@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+      "target": "es2020",
+      "module": "nodenext",
+      "moduleResolution": "nodenext",
+      "sourceMap": true,
+      "outDir": "dist",
+      "esModuleInterop": true,
+      "resolveJsonModule": true
+    },
+    "include": ["src/**/*", "app.ts"],
+    "lib": ["es2015"]
+  }
