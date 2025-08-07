@@ -6,11 +6,11 @@ const app = express();
 const port = 3000;
 
 initializeFirebaseApp() 
-app.use(summaryRoutes);
 app.use((req, res, next) => {
   console.log(`${req.method} request for ${req.url}`);
   next();
 });
+app.use(summaryRoutes);
 
 app.listen(port, () => {
   return console.log(`Express is listening at http://localhost:${port}`);

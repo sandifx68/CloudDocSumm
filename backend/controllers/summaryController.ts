@@ -1,9 +1,8 @@
-import { getSummaryObject } from "../services/summaryService.js";
-import { uploadProcessedData } from "../services/firebase.js"
+import { constructSummaryObject, getSummaryObject } from "../services/summaryService.js";
+import { uploadDocument } from "../services/firebase.js"
 import { Request } from "express";
 
 export const handleSummaryUpload = async (req : Request, res) => {
-    // User already verified to be geniune through middleware
     const userId = req.headers.userId;
     const file = req.file
     if (!file) {
@@ -15,8 +14,17 @@ export const handleSummaryUpload = async (req : Request, res) => {
     
     const pdfBuffer = file.buffer;
     const filename = file.originalname;
-    const summaryObject = await getSummaryObject(pdfBuffer,filename,userId);
-    const docId = (await uploadProcessedData(summaryObject)).id
+    const summaryObject = await constructSummaryObject(pdfBuffer,filename,userId);
+    const docId = (await uploadDocument(summaryObject)).id
     console.log(`Uploaded data, doc id is ${docId}`)
+    res.json(summaryObject)
+}
+
+export const handleGetSummary = async (req : Request, res) => {
+    const docId = req.headers.docid;
+    if(!docId) {
+        throw new Error("No document id provided!")
+    }
+    const summaryObject = await getSummaryObject(docId);
     res.json(summaryObject)
 }

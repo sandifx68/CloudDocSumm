@@ -9,6 +9,5 @@ export const verifyFirebaseToken = async (req : Request , res : Response, next :
     const idToken = authHeader.split('Bearer ')[1];
     const uid = (await getFirebaseAuth().verifyIdToken(idToken)).uid
     req.headers['userId'] = uid;
-    console.log("Decoded uid", uid)
     next();
 }
