@@ -1,11 +1,16 @@
 import { getSummaryObject } from "../services/summaryService.js";
-import { uploadProcessedData } from "./firebase.js"
+import { uploadProcessedData } from "../services/firebase.js"
+import { Request } from "express";
 
-export const handleSummaryUpload = async (req, res) => {
-    const userId = req.body.id;
+export const handleSummaryUpload = async (req : Request, res) => {
+    // User already verified to be geniune through middleware
+    const userId = req.headers.userId;
     const file = req.file
     if (!file) {
         throw new Error("No file uploaded.")
+    }
+    if (typeof userId !== 'string') {
+        throw new Error("User id passed in a wrong way.")
     }
     
     const pdfBuffer = file.buffer;

@@ -2,6 +2,6 @@ export type SummaryObject = {
     summary : string;
     title : string;
     url : string;
-    userId : number;
+    userId : string;
     dateUnix: number;
 };

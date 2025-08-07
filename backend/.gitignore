@@ -2,5 +2,6 @@ node_modules
 dist
 
 clouddocsumm-2ca4aacfeb94.json
+serviceAccountKeyFirebase.json
 firebase_config.json
 todo

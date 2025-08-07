@@ -1,35 +1,29 @@
 import { SummaryObject } from '../models/summaryObject.js'
-import { Storage } from '@google-cloud/storage'
+import { getBucket } from './googleCloud.js'
 import path from 'path';
-import { fileURLToPath } from 'url';
 
 // Pdf parse bug workaround
 import {createRequire} from 'module';
 const require = createRequire(import.meta.url);
 const pdfParse = require("pdf-parse");
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const gc = new Storage({
-    keyFilename: path.join(__dirname, "../clouddocsumm-2ca4aacfeb94.json"),
-    projectId: 'clouddocsumm'
-})
-const bucket = gc.bucket('cloud-doc-summ-bucket');
 
 async function extractTextFromDoc(pdfBuffer : Buffer) : Promise<string> {
     const data = await pdfParse(pdfBuffer)
     return data.text;
 }
 
-function createUniqueFilename(filename : string) : string {
+function createUniqueFilenameUrl(filename : string) : string {
     const parsed = path.parse(filename);
     const uniqueFilename = `${parsed.name}-${Date.now()}${parsed.ext}`
-    return uniqueFilename;
+    const encoded = encodeURIComponent(uniqueFilename)
+    return encoded;
 }
 
 async function uploadDocument(document : Buffer, filename : string) : Promise<string> {
     return new Promise((resolve, reject) => {
-        const uniqueFilename = createUniqueFilename(filename)
+        const uniqueFilename = createUniqueFilenameUrl(filename)
+        const bucket = getBucket()
         const file = bucket.file(uniqueFilename);
         const stream = file.createWriteStream({
             resumable: false,
@@ -66,7 +60,7 @@ function separateTitleText(text: string) : { title : string, summary : string } 
     }
 }
 
-export async function getSummaryObject(pdfBuffer : Buffer, filename : string, userId : number) : Promise<SummaryObject> {
+export async function getSummaryObject(pdfBuffer : Buffer, filename : string, userId : string) : Promise<SummaryObject> {
     const text = await extractTextFromDoc(pdfBuffer);
     const url = await uploadDocument(pdfBuffer, filename); // not async on purpose
     const summaryWithTile = summarizeWithTitle(text);

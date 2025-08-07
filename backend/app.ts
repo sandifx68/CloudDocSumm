@@ -1,6 +1,6 @@
 import express from 'express';
 import summaryRoutes from './routes/summaryRoutes.js'
-import { initializeFirebaseApp } from './controllers/firebase.js';
+import { initializeFirebaseApp } from './services/firebase.js';
 
 const app = express();
 const port = 3000;
