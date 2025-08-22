@@ -18,7 +18,7 @@ app.listen(port, () => {
 
 // Error handler
 app.use((err, req, res, next) => {
-  console.error("Global error handler:", err);
+  console.error(err);
 
   if (err.code === 'LIMIT_FILE_SIZE') {
     return res.status(413).send({

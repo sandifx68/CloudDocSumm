@@ -1,5 +1,6 @@
 import { SummaryObject } from '../models/summaryObject.js'
 import { getBucket } from './googleCloud.js'
+import { getSummaryWithTitle } from './summarizer.js'
 import path from 'path';
 
 // Pdf parse bug workaround
@@ -44,17 +45,12 @@ async function uploadDocument(document : Buffer, filename : string) : Promise<st
     });
 }
 
-// TODO: request to vertex ai
-function summarizeWithTitle(text: string) : string {
-    return text.slice(0,Math.min(100,text.length));
-}
-
 function separateTitleText(text: string) : { title : string, summary : string } {
     const split = text.trim().split('\n');
     if(split.length < 2)
         throw Error("There was an error generating a title for this document.");
     const title = split[0];
-    const summary = split.slice(1).join('\n');
+    const summary = split.slice(1).join('\n').trim();
     return {
         title: title,
         summary: summary
@@ -63,8 +59,8 @@ function separateTitleText(text: string) : { title : string, summary : string } 
 
 export async function constructSummaryObject(pdfBuffer : Buffer, filename : string, userId : string) : Promise<SummaryObject> {
     const text = await extractTextFromDoc(pdfBuffer);
-    const url = await uploadDocument(pdfBuffer, filename); // not async on purpose
-    const summaryWithTile = summarizeWithTitle(text);
+    const url = await uploadDocument(pdfBuffer, filename); 
+    const summaryWithTile = await getSummaryWithTitle(text);
     const { title, summary } = separateTitleText(summaryWithTile);
     const date = Date.now();
     return {
