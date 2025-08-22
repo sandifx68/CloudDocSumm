@@ -1,5 +1,5 @@
 import { initializeApp, cert, App } from "firebase-admin/app";
-import { DocumentSnapshot, getFirestore } from "firebase-admin/firestore";
+import { DocumentSnapshot, getFirestore, QuerySnapshot } from "firebase-admin/firestore";
 import { getAuth, Auth } from "firebase-admin/auth"
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -37,6 +37,15 @@ export const retrieveDocument = async (docId) => {
   }
   
   const data = docSnap.data();
+  return data
+}
+
+export const retrieveDocuments = async (userId) => {
+  const docRef = firestoreDb.collection('documents')
+    .where("userId","==",userId) as FirebaseFirestore.Query<SummaryObject>;
+  const querySnap : QuerySnapshot<SummaryObject> = await docRef.get();
+  const data = []
+  querySnap.forEach((doc) => data.push(doc.data()))
   return data
   
 }

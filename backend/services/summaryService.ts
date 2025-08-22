@@ -4,7 +4,7 @@ import path from 'path';
 
 // Pdf parse bug workaround
 import {createRequire} from 'module';
-import { retrieveDocument } from './firebase.js';
+import { retrieveDocument, retrieveDocuments } from './firebase.js';
 const require = createRequire(import.meta.url);
 const pdfParse = require("pdf-parse");
 
@@ -76,11 +76,12 @@ export async function constructSummaryObject(pdfBuffer : Buffer, filename : stri
     }
 }
 
-export async function getSummaryObject(docId) : Promise<SummaryObject> {
+export async function getSummaryObject(docId : string) : Promise<SummaryObject> {
     const doc = await retrieveDocument(docId);
     return doc;
 }
 
-// export async function getAllSummaryObjects(userId) : Promise<SummaryObject[]> {
-//     const docs = await retrieveDocuments(userId)
-// }
+export async function getSummaryObjects(userId) : Promise<SummaryObject[]> {
+    const docs = await retrieveDocuments(userId);
+    return docs;
+}
