@@ -13,7 +13,7 @@ export const doSignUpWithEmailAndPassword = async (email? : string, password? : 
         return Promise.reject(new Error("Passwords do not match!"))
 
     return createUserWithEmailAndPassword(auth, email, password)
-        .catch((err : any) => {
+        .catch((err) => {
             switch (err.code) {
                 case "auth/email-already-in-use":
                   throw new Error("An account with this email already exists!");
