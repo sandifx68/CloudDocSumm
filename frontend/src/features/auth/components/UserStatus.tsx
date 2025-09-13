@@ -10,8 +10,8 @@ function Authenticator() {
     if (!userLoggedIn) {
         return (
             <div className="p-2 flex flex-row justify-around">
-                <Link to="/sign-up" className="text-2xl font-bold text-text outline-2 outline-offset-3 rounded-xl">Sign Up</Link>
-                <Link to="/sign-in" className="text-2xl font-bold text-text outline-2 outline-offset-3 rounded-xl">Sign In</Link>
+                <Link to="/sign-up" className="text-2xl font-bold text-text outline-2 outline-offset-3 rounded-xl hover:opacity-90">Sign Up</Link>
+                <Link to="/sign-in" className="text-2xl font-bold text-text outline-2 outline-offset-3 rounded-xl hover:opacity-90">Sign In</Link>
             </div>
         )
     }
