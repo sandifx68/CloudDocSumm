@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.post('/createSummaryObject', verifyFirebaseToken, upload.single('document'), handleSummaryUpload);
 
-router.get("/getSummaryObject", verifyFirebaseToken, handleGetSummary);
+router.get("/getSummaryObject/:id", verifyFirebaseToken, handleGetSummary);
 
 router.get("/getSummaryObjects", verifyFirebaseToken, handleGetSummaries);
 
