@@ -1,6 +1,6 @@
 import { ArrowRightStartOnRectangleIcon } from "@heroicons/react/16/solid";
 import { Link } from "react-router-dom";
-import { doSignOut } from "../../../firebase/auth";
+import { doSignOut } from "../../../services/auth";
 import { useAuth } from "../../../contexts/useAuth";
 
 function Authenticator() {

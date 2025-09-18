@@ -4,6 +4,13 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 
+export const getAccessToken = async () => {
+  if (auth.currentUser) {
+    const accessToken = await auth.currentUser.getIdToken(false);
+    return accessToken;
+  } else throw new Error("You must be logged in to do this!")
+}
+
 export const doSignUpWithEmailAndPassword = async (email? : string, password? : string, confirm? : string) => {
     if(!email)
         return Promise.reject(new Error("Email field is empty!"));

@@ -2,7 +2,7 @@
 import { Link } from "react-router-dom";
 import CredentialsTextbox from "../components/CredentialsTextbox";
 import { useState } from "react";
-import { doSignInWithEmailAndPassword } from "../firebase/auth";
+import { doSignInWithEmailAndPassword } from "../services/auth";
 import ModularAuthentication from "../features/auth/components/ModularAuthentication";
 import { useAuth } from "../contexts/useAuth";
 
