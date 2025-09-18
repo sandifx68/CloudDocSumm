@@ -5,7 +5,7 @@ import { handleSummaryUpload, handleGetSummary, handleGetSummaries } from '../co
 
 const router = express.Router();
 
-router.post('/createSummaryObject', verifyFirebaseToken, upload.single('document'), handleSummaryUpload);
+router.post('/createSummaryObject', verifyFirebaseToken, upload.single('file'), handleSummaryUpload);
 
 router.get("/getSummaryObject/:id", verifyFirebaseToken, handleGetSummary);
 
