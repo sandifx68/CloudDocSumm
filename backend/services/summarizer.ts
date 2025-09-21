@@ -37,7 +37,7 @@ export async function getSummaryWithTitle(text: string) : Promise<string> {
             role: "user",
             parts: [
                 {
-                    text: `Summarize the following text, and include a title as the first line.\n${text}`,
+                    text: `Summarize the following text, without using markdown and include a title as the first line.\n${text}`,
                 },
             ],
         },
