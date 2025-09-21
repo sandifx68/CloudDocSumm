@@ -1,5 +1,5 @@
 import DownloadLink from "../../../components/DownloadLink";
-import { useSummary } from "../contexts/SummaryContext";
+import { useSummary } from "../contexts/useSummary";
 
 export default function Summary() {
     const { currentSummary } = useSummary();

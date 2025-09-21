@@ -2,8 +2,9 @@ import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import NewSummary from '../NewSummary';
-import { AuthContext, type AuthContextValue } from '../../../../contexts/AuthContext';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { SummaryProvider } from '../../contexts/SummaryProvider';
+import { AuthContext, type AuthContextValue } from '../../../auth/contexts/AuthContext';
 
 // Mock the React Query hook so we can assert the request
 const mutateSpy = vi.fn();
@@ -30,15 +31,16 @@ function renderWithProviders(ui: React.ReactElement, auth: Partial<AuthContextVa
   const qc = new QueryClient();
   return render(
     <AuthContext.Provider value={authValue}>
-      <QueryClientProvider client={qc}>{ui}</QueryClientProvider>
+      <SummaryProvider>
+        <QueryClientProvider client={qc}>{ui}</QueryClientProvider>
+      </SummaryProvider>
     </AuthContext.Provider>
   );
 }
 
 describe('NewSummary', () => {
   it('disables upload control when user not logged in', () => {
-    const setSummary = vi.fn();
-    const { container } = renderWithProviders(<NewSummary setSummary={setSummary} />, { userLoggedIn: false });
+    const { container } = renderWithProviders(<NewSummary/>, { userLoggedIn: false });
     // Input should be disabled
     const input = container.querySelector('input[type="file"]') as HTMLInputElement;
     expect(input).toBeDisabled();
@@ -47,14 +49,12 @@ describe('NewSummary', () => {
   });
 
   it('Get summary button is disabled without a file', () => {
-    const setSummary = vi.fn();
-    renderWithProviders(<NewSummary setSummary={setSummary} />, { userLoggedIn: true });
+    renderWithProviders(<NewSummary />, { userLoggedIn: true });
     expect(screen.getByRole('button', { name: /get summary/i })).toBeDisabled();
   });
 
   it('shows chosen PDF file name', async () => {
-    const setSummary = vi.fn();
-    renderWithProviders(<NewSummary setSummary={setSummary} />, { userLoggedIn: true });
+    renderWithProviders(<NewSummary />, { userLoggedIn: true });
 
     const input = screen.getByLabelText(/choose file to upload/i, { selector: 'input' }) as HTMLInputElement;
     const pdf = new File(["%PDF-1.4"], "doc.pdf", { type: "application/pdf" });
@@ -65,8 +65,7 @@ describe('NewSummary', () => {
   });
 
   it('sends request when clicking Get summary after selecting a file', async () => {
-    const setSummary = vi.fn();
-    renderWithProviders(<NewSummary setSummary={setSummary} />, { userLoggedIn: true });
+    renderWithProviders(<NewSummary/>, { userLoggedIn: true });
     const input = screen.getByLabelText(/choose file to upload/i, { selector: 'input' }) as HTMLInputElement;
     const pdf = new File(["%PDF-1.4"], "doc.pdf", { type: "application/pdf" });
     await userEvent.upload(input, pdf);

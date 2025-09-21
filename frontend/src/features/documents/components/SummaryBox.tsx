@@ -1,4 +1,4 @@
-import { useSummary } from "../contexts/SummaryContext";
+import { useSummary } from "../contexts/useSummary";
 import type { SummaryObject } from "../types";
 
 export default function SummaryBox({ title, summary }: { title: string; summary: SummaryObject }) {

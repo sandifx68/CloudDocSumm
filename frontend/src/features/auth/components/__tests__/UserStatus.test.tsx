@@ -3,13 +3,13 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import Authenticator from '../UserStatus';
-import { AuthContext, type AuthContextValue } from '../../../../contexts/AuthContext';
 import type { User } from 'firebase/auth';
 
 vi.mock('../../../../services/auth', () => ({
   doSignOut: vi.fn(),
 }));
 import { doSignOut } from '../../../../services/auth';
+import { AuthContext, type AuthContextValue } from '../../contexts/AuthContext';
 
 function renderWithAuth(ui: React.ReactElement, auth: Partial<AuthContextValue> = {}) {
   const value: AuthContextValue = {

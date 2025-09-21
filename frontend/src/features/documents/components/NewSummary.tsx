@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import FileHandler from "./FileHandler";
 import { useCreateSummary } from "../hooks";
-import { useSummary } from "../contexts/SummaryContext";
+import { useSummary } from "../contexts/useSummary";
 
 export default function NewSummary() {
     const { setCurrentSummary } = useSummary();

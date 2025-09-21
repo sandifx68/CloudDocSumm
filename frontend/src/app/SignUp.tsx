@@ -4,7 +4,7 @@ import CredentialsTextbox from "../components/CredentialsTextbox";
 import { useState } from "react";
 import { doSignUpWithEmailAndPassword } from "../services/auth";
 import ModularAuthentication from "../features/auth/components/ModularAuthentication";
-import { useAuth } from "../contexts/useAuth";
+import { useAuth } from "../features/auth/contexts/useAuth";
 
 export default function SignUp() {
 

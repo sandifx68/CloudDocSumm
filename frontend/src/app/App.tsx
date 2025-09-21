@@ -1,11 +1,11 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Home from "./Home"
 import SignUp from "./SignUp";
-import { AuthProvider } from "../contexts/AuthProvider";
-import SignIn from "./SIgnIn";
+import SignIn from "./SignIn";
 import { QueryClient } from "@tanstack/react-query";
 import { QueryClientProvider } from "@tanstack/react-query";
-import { SummaryProvider } from "../features/documents/contexts/SummaryContext";
+import { SummaryProvider } from "../features/documents/contexts/SummaryProvider";
+import { AuthProvider } from "../features/auth/contexts/AuthProvider";
 
 function App() {
 

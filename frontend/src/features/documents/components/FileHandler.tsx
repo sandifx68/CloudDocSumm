@@ -1,5 +1,5 @@
 import { QuestionMarkCircleIcon } from "@heroicons/react/16/solid"
-import { useAuth } from "../../../contexts/useAuth";
+import { useAuth } from "../../auth/contexts/useAuth"
 
 type FileHandlerProps = {
     file: File | null,

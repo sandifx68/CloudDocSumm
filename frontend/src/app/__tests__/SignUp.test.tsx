@@ -3,13 +3,14 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import SignUp from '../SignUp';
-import { AuthContext, type AuthContextValue } from '../../contexts/AuthContext';
+
 
 vi.mock('../../services/auth', () => ({
   doSignUpWithEmailAndPassword: vi.fn(),
 }));
 
 import { doSignUpWithEmailAndPassword } from '../../services/auth';
+import { AuthContext, type AuthContextValue } from '../../features/auth/contexts/AuthContext';
 
 function renderWithAuth() {
   const value: AuthContextValue = {

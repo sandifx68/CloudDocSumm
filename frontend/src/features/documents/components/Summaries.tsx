@@ -1,17 +1,16 @@
-import { useAuth } from "../../../contexts/useAuth"
+import { useAuth } from "../../auth/contexts/useAuth"
 import { useSummaries } from "../hooks"
 import SummaryBox from "./SummaryBox"
 import { RingLoader } from "react-spinners"
 
 export default function Summaries() {
     const { userLoggedIn } = useAuth()
+    const summariesQuery = useSummaries()
     
     if(!userLoggedIn)
         return (
             <div className="p-2 text-center">You must be logged in to see summaries!</div>
         )
-
-    const summariesQuery = useSummaries()
 
     if(summariesQuery.isLoading) {
         const color = getComputedStyle(document.documentElement).getPropertyValue("--color-text");

@@ -1,7 +1,9 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import Summary from '../Summary';
+import { useSummary } from '../../contexts/useSummary';
 import type { SummaryObject } from '../../types';
+import { SummaryProvider } from '../../contexts/SummaryProvider';
 
 describe('Summary page', () => {
   const base: SummaryObject = {
@@ -20,20 +22,36 @@ describe('Summary page', () => {
     logSpy.mockRestore();
   });
 
+  const renderWithProvider = (summary: SummaryObject) => {
+    const Wrapper = ({ children }: { children: React.ReactNode }) => {
+      const { setCurrentSummary } = useSummary();
+      setCurrentSummary(summary);
+      return children;
+    };
+
+    return render(
+      <SummaryProvider>
+        <Wrapper>
+          <Summary />
+        </Wrapper>
+      </SummaryProvider>
+    );
+  };
+
   it('displays the formatted date', () => {
-    render(<Summary summary={base} />);
+    renderWithProvider(base);
     const d = new Date(base.dateUnix);
     const expected = `${d.toDateString()} ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`;
     expect(screen.getByText(expected)).toBeInTheDocument();
   });
 
   it('shows summary text', () => {
-    render(<Summary summary={base} />);
+    renderWithProvider(base);
     expect(screen.getByText(base.summary)).toBeInTheDocument();
   });
 
   it('shows the title', () => {
-    render(<Summary summary={base} />);
+    renderWithProvider(base);
     expect(screen.getByText(base.title)).toBeInTheDocument();
   });
 });

@@ -1,4 +1,4 @@
-import { useSummary } from "../features/documents/contexts/SummaryContext";
+import { useSummary } from "../features/documents/contexts/useSummary";
 import Sidebar from "../components/Sidebar"
 import NewSummary from "../features/documents/components/NewSummary"
 import Summary from "../features/documents/components/Summary"
