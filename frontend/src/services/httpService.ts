@@ -38,7 +38,9 @@ export async function http<T>(
         const t = await res.text();
         if (t) message = t;
       }
-    } catch {}
+    } catch {
+      // Intentionally ignore JSON/text parsing errors; fallback to default message
+    }
     throw new Error(message);
   }
 
