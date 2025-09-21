@@ -39,7 +39,7 @@ export default function DownloadLink({ url, title } : DownloadLinkProps) {
   };
 
   return (
-    <div className="font-bold text-5xl">
+    <div className="font-bold text-3xl">
         {"Summary of "} 
         <span className="text-blue-400 hover:underline hover:cursor-pointer" onClick={handleDownload}>
             {title}

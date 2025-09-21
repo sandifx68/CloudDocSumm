@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import FileHandler from "./FileHandler";
 import { useCreateSummary } from "../hooks";
-import type { SummaryObject } from "../types";
+import { useSummary } from "../contexts/SummaryContext";
 
-export default function NewSummary({setSummary} : {setSummary: React.Dispatch<React.SetStateAction<SummaryObject | undefined>>}) {
+export default function NewSummary() {
+    const { setCurrentSummary } = useSummary();
     const [file, setFile] = useState<File | null>(null);
     const { mutate, data, isSuccess, isPending } = useCreateSummary();
     const [error, setError] = useState<string>("");
@@ -12,9 +13,9 @@ export default function NewSummary({setSummary} : {setSummary: React.Dispatch<Re
     // When the mutation is succesful, we set the new summay.
     useEffect(() => {
         if (isSuccess) {
-            setSummary(data);
+            setCurrentSummary(data);
         }
-    }, [isSuccess, data, setSummary]);
+    }, [isSuccess, data, setCurrentSummary]);
     
     const handleUpload = () => {
         if(!file)
