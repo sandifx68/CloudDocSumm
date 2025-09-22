@@ -3,7 +3,7 @@ import type { SummaryObject } from "../types";
 
 interface SummaryContextValue {
     currentSummary: SummaryObject | undefined;
-    setCurrentSummary: (summary: SummaryObject) => void;
+    setCurrentSummary: (summary: SummaryObject | undefined) => void;
 }
 
 export const SummaryContext = createContext<SummaryContextValue | undefined>(undefined);

@@ -2,10 +2,17 @@ import { ArrowRightStartOnRectangleIcon } from "@heroicons/react/16/solid";
 import { Link } from "react-router-dom";
 import { doSignOut } from "../../../services/auth";
 import { useAuth } from "../contexts/useAuth";
+import { useSummary } from "../../documents/contexts/useSummary";
 
 function Authenticator() {
 
     const { userLoggedIn, currentUser } = useAuth()
+    const { setCurrentSummary } = useSummary()
+
+    const handleSignOut = () => {
+        doSignOut()
+        setCurrentSummary(undefined)
+    }
 
     if (!userLoggedIn) {
         return (
@@ -18,8 +25,8 @@ function Authenticator() {
 
     return (
         <div className="mt-2 flex flex-row items-center">
-            <div className="text-xl flex-1">{currentUser?.email}</div>
-            <ArrowRightStartOnRectangleIcon onClick={() => doSignOut()} className="w-1/5 text-text size-8 outline-2 outline-offset-3 rounded-xl cursor-pointer" />
+            <div className="text-xl flex-1 truncate">{currentUser?.email}</div>
+            <ArrowRightStartOnRectangleIcon onClick={() => handleSignOut()} className="min-w-1/5 text-text size-8 outline-2 outline-offset-3 rounded-xl cursor-pointer" />
         </div>
     )
 
