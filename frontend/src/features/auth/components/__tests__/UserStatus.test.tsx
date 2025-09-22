@@ -10,6 +10,7 @@ vi.mock('../../../../services/auth', () => ({
 }));
 import { doSignOut } from '../../../../services/auth';
 import { AuthContext, type AuthContextValue } from '../../contexts/AuthContext';
+import { SummaryProvider } from '../../../documents/contexts/SummaryProvider';
 
 function renderWithAuth(ui: React.ReactElement, auth: Partial<AuthContextValue> = {}) {
   const value: AuthContextValue = {
@@ -21,9 +22,11 @@ function renderWithAuth(ui: React.ReactElement, auth: Partial<AuthContextValue> 
   };
   return render(
     <AuthContext.Provider value={value}>
-      <MemoryRouter>
-        {ui}
-      </MemoryRouter>
+      <SummaryProvider>
+        <MemoryRouter>
+          {ui}
+        </MemoryRouter>
+      </SummaryProvider>
     </AuthContext.Provider>
   );
 }
