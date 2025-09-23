@@ -11,7 +11,8 @@ let auth : Auth;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const serviceAccount = path.join(__dirname,"../serviceAccountKeyFirebase.json")
+// Resolve to repo root even after compilation (dist/services -> ../../serviceAccountKeyFirebase.json)
+const serviceAccount = path.resolve(__dirname, "..", "..", "serviceAccountKeyFirebase.json");
 
 
 export const initializeFirebaseApp = () => {
