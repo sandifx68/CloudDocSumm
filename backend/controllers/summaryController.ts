@@ -20,7 +20,7 @@ export const handleSummaryUpload = async (req : Request, res) => {
 }
 
 export const handleGetSummary = async (req : Request, res) => {
-    const docId = req.headers.docid;
+    const docId = req.params.id;
     if(!docId || typeof docId!=='string') {
         throw new Error("No document id provided or not passed well.")
     }

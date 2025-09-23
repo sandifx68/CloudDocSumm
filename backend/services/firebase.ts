@@ -40,15 +40,17 @@ export const retrieveDocument = async (docId) => {
   return data
 }
 
-export const retrieveDocuments = async (userId) => {
-  const docRef = firestoreDb.collection('documents')
-    .where("userId","==",userId) as FirebaseFirestore.Query<SummaryObject>;
-  const querySnap : QuerySnapshot<SummaryObject> = await docRef.get();
-  const data = []
-  querySnap.forEach((doc) => data.push(doc.data()))
-  return data
-  
-}
+export const retrieveDocuments = async (userId: string): Promise<SummaryObject[]> => {
+  const docRef = firestoreDb
+    .collection('documents')
+    .where('userId', '==', userId)
+    .orderBy('dateUnix', 'desc') as FirebaseFirestore.Query<SummaryObject>;
+
+  const querySnap: QuerySnapshot<SummaryObject> = await docRef.get();
+  const data: SummaryObject[] = [];
+  querySnap.forEach((doc) => data.push(doc.data()));
+  return data;
+};
 
 export const getFirebaseApp = () => app;
 export const getFirebaseAuth = () => auth;
