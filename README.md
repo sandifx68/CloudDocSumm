@@ -1,4 +1,4 @@
-# AI Document summarizer built with Typescript with a NodeJS, Express and GCP backend and a React frontend.
+# AI Document summarizer built with Typescript with a NodeJS, Express and GCP backend and a React frontend. Available [at this link](https://cloud-doc-summ-firebase.web.app/).
 
 ### Features:
 - Users can sign up and log in
@@ -12,6 +12,4 @@
 - Google cloud / Firebase features were used to store uploaded PDFs and also to manage authentication
 - A React frotend was built in order to work with the backend built
 - A pipeline was built to run frontend linting and tests automatically
-
-### To do:
-- dockerize and host the backend and frontend with cloud run
+- Finally, backend hosted with cloud run and frontend hosted with firebase hosting.

@@ -1,22 +1,17 @@
 import { initializeApp, cert, App } from "firebase-admin/app";
 import { DocumentSnapshot, getFirestore, QuerySnapshot } from "firebase-admin/firestore";
 import { getAuth, Auth } from "firebase-admin/auth"
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 import { SummaryObject } from "../models/summaryObject.js";
+import admin from "firebase-admin";
 
 let app : App;
 let firestoreDb : FirebaseFirestore.Firestore;
 let auth : Auth;
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const serviceAccount = path.join(__dirname,"../serviceAccountKeyFirebase.json")
-
-
 export const initializeFirebaseApp = () => {
   app = initializeApp({
-    credential: cert(serviceAccount)
+    credential: admin.credential.applicationDefault(),
+    projectId: "cloud-doc-summ-firebase"
   });
   firestoreDb = getFirestore(app);
   auth = getAuth()

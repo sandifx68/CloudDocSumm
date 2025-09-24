@@ -4,7 +4,7 @@ import summaryRoutes from './routes/summaryRoutes.js'
 import { initializeFirebaseApp } from './services/firebase.js';
 
 const app = express();
-const port = 3000;
+const PORT = Number(process.env.PORT) || 8080;
 const allowedOrigin = process.env.CORS_ORIGIN || "http://localhost:5173";
 
 initializeFirebaseApp();
@@ -32,6 +32,6 @@ app.use((err, req, res, next) => { // Error handler
   next()
 });
 
-app.listen(port, () => {
-  return console.log(`Express is listening at http://localhost:${port}`);
+app.listen(PORT,'0.0.0.0', () => {
+  return console.log(`Server running on port ${PORT}`);
 });
