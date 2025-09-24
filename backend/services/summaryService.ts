@@ -24,9 +24,10 @@ function createUniqueFilenameUrl(filename : string) : string {
 
 async function uploadDocument(document : Buffer, filename : string) : Promise<string> {
     return new Promise((resolve, reject) => {
-        const uniqueFilename = createUniqueFilenameUrl(filename)
-        const bucket = getBucket()
-        const file = bucket.file(uniqueFilename);
+        const uniqueFilename = createUniqueFilenameUrl(filename);
+        const objectName = `assets/${uniqueFilename}`; // store under assets/ prefix
+        const bucket = getBucket();
+        const file = bucket.file(objectName);
         const stream = file.createWriteStream({
             resumable: false,
             public: true // make file public for now
@@ -37,7 +38,7 @@ async function uploadDocument(document : Buffer, filename : string) : Promise<st
         });
 
         stream.on('finish', async () => {
-            const publicUrl = `https://storage.googleapis.com/${bucket.name}/${uniqueFilename}`;
+            const publicUrl = `https://storage.googleapis.com/${bucket.name}/${objectName}`;
             resolve(publicUrl);
         });
 

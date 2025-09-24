@@ -34,9 +34,9 @@ export default function Summary() {
                 </div>
             </div>
 
-            <div className="h-8/10 flex items-center justify-center p-8">
+            <div className="h-8/10 flex items-stretch justify-center p-8">
                 <div
-                    className={`max-w-3xl w-full text-center text-2xl bg-sidebar border-4 border-muted rounded-md p-6 transition-opacity ${
+                    className={`max-w-3xl w-full h-full overflow-y-auto text-center text-2xl bg-sidebar border-4 border-muted rounded-md p-6 transition-opacity scrollbar ${
                         isVisible ? "opacity-100 duration-500" : "opacity-0 duration-0"
                     }`}
                 >
